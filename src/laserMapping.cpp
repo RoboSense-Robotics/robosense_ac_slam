@@ -1008,6 +1008,11 @@ void FastLivoSlam::EstimateLIOState() {
         /** Find the closest surfaces in the map **/
         ikdtree.Nearest_Search(point_world, NUM_MATCH_POINTS, points_near,
                                pointSearchSqDis);
+        if(pointSearchSqDis.size()<NUM_MATCH_POINTS)
+        {
+          point_selected_surf[i] = 0;
+          continue;
+        }
         point_selected_surf[i] =
             pointSearchSqDis[NUM_MATCH_POINTS - 1] > 5 ? 0 : 1;
         kdtree_search_time += omp_get_wtime() - search_start;
