@@ -1222,11 +1222,11 @@ void FastLivoSlam::EstimateLIOState() {
   // eskf
   // livo_result_->lio_result->log->state_pos = state.pos_end;
 
-  if (rs_debug && feats_down_world->size()) {
+  if (rs_debug && feats_down_world && feats_down_world->size()) {
     auto source_normal_cloud = DrawCloudNormal(feats_down_world);
     pcl::PCDWriter pcd_writer;
     if (source_normal_cloud->size())
-      pcd_writer.writeBinary("/apollo/data/log/vis-test2.pcd",
+      pcd_writer.writeBinary(pcd_dir+"/vis-test2.pcd",
                              *source_normal_cloud);
   }
 }
@@ -1511,10 +1511,10 @@ void FastLivoSlam::PublishVIOResult() {
        << " detect: " << detect_t << " VIO total: " << VIO_total_t
        << std::setprecision(6) << REND;
 
-  if (rs_debug && lidar_selector->noise_cloud->size()) {
+  if (rs_debug && lidar_selector->noise_cloud && lidar_selector->noise_cloud->size()) {
     double t1 = omp_get_wtime();
     pcl::PCDWriter pcd_writer;
-    pcd_writer.writeBinary("/apollo/data/log/vis-test3.pcd",
+    pcd_writer.writeBinary(pcd_dir+"/vis-test3.pcd",
                            *lidar_selector->noise_cloud);
   }
   if (1) {
@@ -1597,7 +1597,7 @@ void FastLivoSlam::PublishLIOResult() {
     }
     pcl::PCDWriter pcd_writer;
     if (invalid_source_cloud->size())
-      pcd_writer.writeBinary("/apollo/data/log/vis-test4.pcd",
+      pcd_writer.writeBinary(pcd_dir+"/vis-test4.pcd",
                              *invalid_source_cloud);
   }
 
