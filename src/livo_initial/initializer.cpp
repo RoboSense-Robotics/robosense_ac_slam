@@ -11,7 +11,6 @@ Initializer::Initializer(const Eigen::Matrix4d _T_imu_from_lidar, const Eigen::M
   t_imu_from_lidar_ = _T_imu_from_lidar.topRightCorner(3,1);
   R_imu_from_camera_ = R_imu_from_lidar_*_T_camera_from_lidar.topLeftCorner(3,3).transpose();
   t_imu_from_camera_ = R_imu_from_lidar_*(-_T_camera_from_lidar.topLeftCorner(3,3).transpose()*_T_camera_from_lidar.topRightCorner(3,1)) + t_imu_from_lidar_;
-  t_imu_from_camera_ << -0.030219, 0.02354, 0.;
 
   std::cout << "R_imu_from_lidar_:\n" << R_imu_from_lidar_ << std::endl;
   std::cout << "t_imu_from_lidar_:\n" << t_imu_from_lidar_ << std::endl;
